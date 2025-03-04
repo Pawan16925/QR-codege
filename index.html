@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- QR Code Styling -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-styling/lib/qr-code-styling.min.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #8360c3, #2ebf91);
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+
+    <div class="glass w-full max-w-md text-center p-6">
+        <h1 class="text-2xl font-bold text-white mb-4">✨ QR Code Generator</h1>
+        
+        <input type="text" id="urlInput" class="border p-2 w-full rounded text-gray-700" placeholder="Enter your link...">
+        
+        <button onclick="generateQR()" class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 mt-3 rounded w-full transition-all duration-300">
+            Generate QR Code
+        </button>
+        
+        <div id="qrContainer" class="mt-4 flex justify-center"></div>
+        
+        <a id="downloadBtn" class="hidden bg-green-500 hover:bg-green-700 text-white px-4 py-2 mt-3 rounded w-full transition-all duration-300">
+            Download QR Code
+        </a>
+        
+        <!-- Google Ads -->
+        <div class="mt-4">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="YOUR-ADSENSE-ID"
+                data-ad-slot="YOUR-AD-SLOT"
+                data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <script>
+        let qrCode;
+        function generateQR() {
+            const url = document.getElementById("urlInput").value;
+            const qrContainer = document.getElementById("qrContainer");
+            const downloadBtn = document.getElementById("downloadBtn");
+
+            if (!url) {
+                alert("Please enter a valid URL");
+                return;
+            }
+
+            qrContainer.innerHTML = ""; 
+
+            qrCode = new QRCodeStyling({
+                width: 200,
+                height: 200,
+                type: "svg",
+                data: url,
+                image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", 
+                dotsOptions: {
+                    color: "#ffffff",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "rgba(255, 255, 255, 0)"
+                },
+                cornersSquareOptions: {
+                    type: "extra-rounded"
+                }
+            });
+
+            qrCode.append(qrContainer);
+
+            setTimeout(() => {
+                qrCode.getRawData().then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    downloadBtn.href = url;
+                    downloadBtn.download = "qr-code.png";
+                    downloadBtn.classList.remove("hidden");
+                });
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>
