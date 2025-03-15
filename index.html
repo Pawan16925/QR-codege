@@ -1,1 +1,152 @@
-<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0">     <title>QR Code Generator</title>     <script src="https://cdn.tailwindcss.com"></script>     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> </head> <body class="bg-gray-100 flex justify-center items-center h-screen">      <div class="bg-white p-8 shadow-lg rounded-lg text-center w-full max-w-md">         <h1 class="text-2xl font-bold mb-4">QR Code Generator</h1>         <input type="text" id="urlInput" class="border p-2 w-full rounded" placeholder="Enter your link...">         <button onclick="generateQR()" class="bg-blue-500 text-white px-4 py-2 mt-3 rounded w-full">Generate QR Code</button>                  <div id="qrContainer" class="mt-4"></div>                  <a id="downloadBtn" class="hidden bg-green-500 text-white px-4 py-2 mt-3 rounded w-full">Download QR Code</a>                  <!-- Google Ads -->         <div class="mt-4">             <ins class="adsbygoogle"                 style="display:block"                 data-ad-client="YOUR-ADSENSE-ID"                 data-ad-slot="YOUR-AD-SLOT"                 data-ad-format="auto"></ins>             <script>                 (adsbygoogle = window.adsbygoogle || []).push({});             </script>         </div>     </div>      <script>         function generateQR() {             const url = document.getElementById("urlInput").value;             const qrContainer = document.getElementById("qrContainer");             const downloadBtn = document.getElementById("downloadBtn");              if (!url) {                 alert("Please enter a valid URL");                 return;             }              qrContainer.innerHTML = "";             const qr = new QRCode(qrContainer, {                 text: url,                 width: 200,                 height: 200             });              setTimeout(() => {                 const qrCanvas = qrContainer.querySelector("canvas");                 const qrImage = qrCanvas.toDataURL("image/png");                 downloadBtn.href = qrImage;                 downloadBtn.download = "qrcode.png";                 downloadBtn.classList.remove("hidden");             }, 500);         }     </script>  </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding: 12px;
+    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #74ebd5;
+}
+
+button {
+    padding: 12px;
+    font-size: 1em;
+    background: #74ebd5;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #acb6e5;
+}
+
+.qr-output {
+    margin: 20px 0;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ad-container {
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <p>Create a QR code for any URL or text with ease!</p>
+        
+        <div class="input-section">
+            <input type="text" id="qrInput" placeholder="Enter URL or text here">
+            <button onclick="generateQR()">Generate QR Code</button>
+        </div>
+        
+        <div id="qrOutput" class="qr-output"></div>
+        
+        <!-- Google AdMob Banner Ad with your specific ad unit -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9005733002223091"
+                 data-ad-slot="5412679590"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+   <script> function generateQR() {
+    const qrInput = document.getElementById('qrInput').value;
+    const qrOutput = document.getElementById('qrOutput');
+
+    // Clear previous QR code
+    qrOutput.innerHTML = '';
+
+    if (qrInput.trim() === '') {
+        alert('Please enter a URL or text to generate a QR code!');
+        return;
+    }
+
+    // Generate QR code
+    new QRCode(qrOutput, {
+        text: qrInput,
+        width: 200,
+        height: 200,
+        colorDark: '#333333',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H // High error correction
+    });
+} </script>
+     
+    <!-- Include QR code generation library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Include your custom script -->
+    <script src="script.js"></script>
+    <!-- AdMob SDK -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</body>
+</html>
